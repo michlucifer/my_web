@@ -1,0 +1,98 @@
+body {
+   margin:0px;
+   text-align: center;
+/*      background-color: rgb(165,222,228);*/
+/*   background-color: rgb(120,194,196);*/
+}
+  @font-face {
+  font-family: 'mathlete';
+  src: url('../font/mathlete.ttf');
+  }
+  @font-face {
+  font-family: 'Big Caslon Medium';
+  src: url('../font/Big Caslon Medium.ttf');
+  }
+  @font-face {
+  font-family: 'DancingScript Regular';
+  src: url('../font/DancingScript-Regular.ttf');
+  }
+  @font-face {
+  font-family: 'Gruppo Regular';
+  src: url('../font/Gruppo-Regular.ttf');
+  }
+  @font-face {
+  font-family: 'Opensans Regular';
+  src: url('../font/OpenSans-Regular.ttf');
+  }
+  @font-face {
+  font-family: 'Opensans Bold';
+  src: url('../font/OpenSans-Bold.ttf');
+  }
+  @font-face {
+  font-family: 'LibreBaskerville Italic';
+  src: url('../font/LibreBaskerville-Italic.ttf');
+  }
+  @font-face {
+  font-family: 'Myriad Set Pro';
+  src: url('../font/myriad-set-pro_thin.ttf');
+  }
+.container-fluid {
+ width:100%;
+ padding-left:0px;
+ padding-right:0px;
+}
+.navbar-me {
+  background-color: rgba(0,0,0,0.6);
+  color:white;
+}
+.navbar-me-text a{
+  color:red;
+}
+#no_login {
+  color:red;
+}
+#to_logout{
+  color:blue;
+}
+.try {
+  color:red;
+}
+.search {
+    position:relative;
+    margin-top:200px;
+    z-index: 20;
+  }
+.search .search-by-name {
+  display:inline;
+  float:left;
+  margin-left:100px;
+}
+.search-title-name {
+
+}
+.search-title-name h2{
+  font-family: "DancingScript Regular";
+  
+}
+.search .search-by-location {
+  display:inline;
+  float:right;
+  margin-right:100px;
+}
+
+#search-form-name input[type=text] {
+    width: 250px;
+}
+#search-form-location input[type=text] {
+    width: 250px;
+}
+.search-result.clear{
+ clear: both;
+}
+.search-result {
+  display:block;
+   position:relative;
+   margin-top:50px;
+   z-index: 1;
+   float:left;
+}

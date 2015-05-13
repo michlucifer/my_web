@@ -1,0 +1,105 @@
+body {
+   margin:0px;
+   text-align: center;
+/*      background-color: rgb(165,222,228);*/
+}
+  @font-face {
+  font-family: 'mathlete';
+  src: url('../font/mathlete.ttf');
+  }
+  @font-face {
+  font-family: 'Big Caslon Medium';
+  src: url('../font/Big Caslon Medium.ttf');
+  }
+  @font-face {
+  font-family: 'DancingScript Regular';
+  src: url('../font/DancingScript-Regular.ttf');
+  }
+  @font-face {
+  font-family: 'Gruppo Regular';
+  src: url('../font/Gruppo-Regular.ttf');
+  }
+  @font-face {
+  font-family: 'Opensans Regular';
+  src: url('../font/OpenSans-Regular.ttf');
+  }
+  @font-face {
+  font-family: 'Opensans Bold';
+  src: url('../font/OpenSans-Bold.ttf');
+  }
+  @font-face {
+  font-family: 'LibreBaskerville Italic';
+  src: url('../font/LibreBaskerville-Italic.ttf');
+  }
+  @font-face {
+  font-family: 'Myriad Set Pro';
+  src: url('../font/myriad-set-pro_thin.ttf');
+  }
+.container-fluid {
+ width:100%;
+ padding-left:0px;
+ padding-right:0px;
+ /*background-color: rgb(120,194,196);
+ background-color: rgb(165,222,228);*/
+ background: url(../image/bg3.jpg);
+ background-size: 100%;
+
+}
+.navbar-me-text a{
+  color:red;
+}
+#no_login {
+  color:red;
+}
+#to_logout{
+  color:blue;
+}
+.try {
+  color:red;
+}
+.search {
+    position:relative;
+    margin-top:200px;
+    z-index: 20;
+/*    color:white;*/
+color:black;
+    height:500px;
+  }
+.search .search-by-name {
+  display:inline;
+  float:left;
+  margin-left:250px;
+}
+.search-title-name {
+
+}
+.search-title-name h2{
+  font-family: "Myriad Set Pro";
+}
+.search .search-by-location {
+  display:inline;
+  float:right;
+  margin-right:200px;
+}
+.search-title-location h2{
+  font-family: "Myriad Set Pro";
+}
+#search-form-name input[type=text] {
+    width: 250px;
+}
+#search-form-location input[type=text] {
+    width: 250px;
+}
+.search-result.clear{
+ clear: both;
+}
+.search-result {
+   display:block;
+   margin-left: 300px;
+   text-align: center;
+   position:absolute;
+   margin-top:100px;
+   z-index: 1;
+   font-family: "Myriad Set Pro";
+
+}
