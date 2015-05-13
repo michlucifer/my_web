@@ -124,3 +124,6 @@ color:black;
   .register-notice a:hover{
     color: blue;
   }
+  .tryit{
+    color:red;
+  }
