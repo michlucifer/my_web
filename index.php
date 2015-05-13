@@ -26,7 +26,7 @@
 				$query = mysql_query("SELECT * FROM hotel WHERE hotelName LIKE '%$searchq%'") or die("Could not search!");
 
 				$count  = mysql_num_rows($query);
-				if($count == 0) {
+				if($count === 0) {
 					$output = 'There was no search results!';
 				}else{
 					$output = '';
@@ -39,7 +39,7 @@
 									.'<td>' .$hname .'</td>'
 									.'<td>' .$hcity .'</td>'
 									.'<td>' 
-										.'<form action="hotel_index.php" method="POST" style="display:inline">'	
+										.'<form action="hotel_index.php?hid='.$hid.'&uid='.$userid.'" method="POST" style="display:inline">'	
 											.'<input type="hidden" name="userid" value='.$userid.'>'
 											.'<input type="hidden" name="hotelid" value='.$hid.'>'
 											.'<input type="submit" value="MORE>>" style="font-size:15px; background-color:rgb(165,222,228); border:0px;"/>'
@@ -118,7 +118,7 @@
 				<div class="search-title-name">
 					<h2>Search By Name</h2>
 				</div>
-				<form action="index.php" method="POST" id="search-form-name" class="navbar-form navbar-left" role="search">
+				<form action="index.php?uid=<?php echo $userid?>" method="POST" id="search-form-name" class="navbar-form navbar-left" role="search">
 					<input type="submit" value=">>" style="background-color:rgba(255,255,255,0.7); border:0px; height:50px;"/>
 					<div class="form-group">
 						<input type="text" class="form-control" name="searchName" placeholder="Search for members by NAME" style="width:300px;height:50px;border-radius:0;"/>
