@@ -35,6 +35,8 @@ body {
   font-family: 'Myriad Set Pro';
   src: url('../font/myriad-set-pro_thin.ttf');
   }
+
+  /*----------------------    index.php   ----------------------*/
 .container-fluid {
  width:100%;
  padding-left:0px;
@@ -43,6 +45,7 @@ body {
  background-color: rgb(165,222,228);*/
  background: url(../image/bg3.jpg);
  background-size: 100%;
+ text-align: center;
 
 }
 .navbar-me-text a{
@@ -103,3 +106,21 @@ color:black;
    font-family: "Myriad Set Pro";
 
 }
+
+  /*----------------------     login.php    ----------------------*/
+  .login-page {
+    margin-top:200px;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    float:center;
+  }
+  .register-notice {
+    font-size: 20px;
+  }
+  .register-notice a{
+    color: red; 
+  }
+  .register-notice a:hover{
+    color: blue;
+  }
