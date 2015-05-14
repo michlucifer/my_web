@@ -157,9 +157,11 @@ color:black;
   .title {
     font-family: "Opensans Regular";
     letter-spacing: 2px;
+
   }
   .subtitle {
      font-family: "Opensans Regular";
+     margin-left:-20px;
   }
   .check-room-type {
     font-family: "Opensans Regular";

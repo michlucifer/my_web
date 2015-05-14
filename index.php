@@ -1,89 +1,11 @@
-<?php	
+<?php
+        include 'config_db.php';	
 	//check whether logged or not 
 		$log_status = isset($_COOKIE['loggedin']);
 		if($log_status)	{
 			$userid = $_GET['uid'];
 		}else{
 			$userid = null;
-		}
-		
-		//connect to database
-		$username = "root";
-		$password = "Ling109114";
-		$hostname = "localhost";
-		mysql_connect($hostname, $username, $password) or die("Could not connect to database");
-		mysql_select_db("hotel_booking") or die("could not find db!");
-		$output = 'NO RESULT YET!!';
-		
-		//collect
-		if(isset($_POST['searchName'])) {
-			if($_POST['searchName'] === ''){
-				$output = ' ';
-			}else{
-				$searchq = $_POST['searchName'];
-				$searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
-
-				$query = mysql_query("SELECT * FROM hotel WHERE hotelName LIKE '%$searchq%'") or die("Could not search!");
-
-				$count  = mysql_num_rows($query);
-				if($count === 0) {
-					$output = 'There was no search results!';
-				}else{
-					$output = '';
-					while($row = mysql_fetch_array($query)){
-						$hname = $row['hotelName'];
-						$hid = $row['hotelID'];
-						$hcity = $row['city'];
-
-						$output .='<tr>'
-									.'<td>' .$hname .'</td>'
-									.'<td>' .$hcity .'</td>'
-									.'<td>' 
-										.'<form action="hotel_index.php?hid='.$hid.'&uid='.$userid.'" method="POST" style="display:inline">'	
-											.'<input type="hidden" name="userid" value='.$userid.'>'
-											.'<input type="hidden" name="hotelid" value='.$hid.'>'
-											.'<input type="submit" value="MORE>>" style="font-size:15px; background-color:rgb(165,222,228); border:0px;"/>'
-										.'</form>'
-									.'</td>'
-								  .'</tr>';
-					}
-				}
-			}
-		}
-		if(isset($_POST['searchLocation'])) {
-			if($_POST['searchLocation'] === ''){
-				$output = ' ';
-			}else{
-				$searchq = $_POST['searchLocation'];
-				$searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
-
-				$query = mysql_query("SELECT * FROM hotel WHERE city LIKE '%$searchq%'") or die("Could not search!");
-
-				$count  = mysql_num_rows($query);
-				$count  = mysql_num_rows($query);
-				if($count == 0) {
-					$output = 'There was no search results!';
-				}else{
-					$output = '';
-					while($row = mysql_fetch_array($query)){
-						$hname = $row['hotelName'];
-						$hid = $row['hotelID'];
-						$hcity = $row['city'];
-
-						$output .='<tr>'
-									.'<td>' .$hname .'</td>'
-									.'<td>' .$hcity .'</td>'
-									.'<td>' 
-										.'<form action="hotel_index.php" method="POST" style="display:inline">'	
-											.'<input type="hidden" name="userid" value='.$userid.'>'
-											.'<input type="hidden" name="hotelid" value='.$hid.'>'
-											.'<input type="submit" value="MORE>>" style="font-size:15px; background-color:rgb(165,222,228); border:0px;"/>'
-										.'</form>'
-									.'</td>'
-								  .'</tr>';
-					}
-				}
-			}
 		}
 ?>
 <html>
@@ -118,9 +40,10 @@
 				<div class="search-title-name">
 					<h2>Search By Name</h2>
 				</div>
-				<form action="index.php?uid=<?php echo $userid?>" method="POST" id="search-form-name" class="navbar-form navbar-left" role="search">
-					<input type="submit" value=">>" style="background-color:rgba(255,255,255,0.7); border:0px; height:50px;"/>
+				<form method="POST" id="search-form-name" name="search-form-name" class="navbar-form navbar-left" role="search">
+					<input value=">>" onclick="searchByName(this.form.searchName.value,this.form.userid.value)" style="background-color:rgba(255,255,255,0.7); border:0px; height:50px;" type="button" class="btn btn-default"/>
 					<div class="form-group">
+						<input type="hidden" name="userid" value="<?php echo $userid; ?>"/>
 						<input type="text" class="form-control" name="searchName" placeholder="Search for members by NAME" style="width:300px;height:50px;border-radius:0;"/>
 					</div>
 				</form>
@@ -129,24 +52,17 @@
 				<div class="search-title-location">
 					<h2>Search By Location</h2>
 				</div>
-				<form action="index.php" method="POST" id="search-form-location" class="navbar-form navbar-left" role="search">
+				<form method="POST" id="search-form-location" name="search-form-location"class="navbar-form navbar-left" role="search">
 					<div class="form-group">
+						<input type="hidden" name="userid" value="<?php echo $userid; ?>"/>
 						<input type="text" class="form-control" name="searchLocation" placeholder="Search for members by LOCATION" style="width:300px;height:50px;border-radius:0;"/>
 					</div>
-					<input type="submit" value="<<" style="background-color:rgba(255,255,255,0.7); border:0px; height:50px;"/>
+					<input value="<<" onclick="searchByLocation(this.form.searchLocation.value,this.form.userid.value)" style="background-color:rgba(255,255,255,0.7); border:0px; height:50px;" type="button" class="btn btn-default"/>
 				</form>
 			</div>
 		</div>
-		<div class="search-result">
-			<table class="table" style="font-size:20px;">
-						<tr> 
-							<td style="width:300px; font-size:30px;">Hotel Name</td>
-							<td style="width:300px; font-size:30px;">City</td>
-							<td></td>
-						</tr>
-			<?php print("$output");
-			?>
-			</table>
+		<div class="search-result" id="show-result">
+					<b>NO RESULT YET!</b>
 		</div>
 	</div>	
 		
@@ -160,6 +76,54 @@
 				$("#yes_login").show();
 				}
 		  }
+    </script>
+    <script type="text/javascript">
+		  function searchByName(hotelname,userid){
+
+		  	if (hotelname == "") {
+		  		document.getElementById("show-result").innerHTML = "";
+		  		return;
+		  	} else { 
+		  		if (window.XMLHttpRequest) {
+            		// code for IE7+, Firefox, Chrome, Opera, Safari
+           			xmlhttp = new XMLHttpRequest();
+        		} else {
+           			// code for IE6, IE5
+           			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        		}
+        		xmlhttp.onreadystatechange = function() {
+        			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        				document.getElementById("show-result").innerHTML = xmlhttp.responseText;
+        			}
+        		}
+       		xmlhttp.open("GET","index_search_name.php?searchq="+hotelname+"&uid="+userid,true);
+        	xmlhttp.send();
+        	}
+		 }
+    </script>
+    <script type="text/javascript">
+		  function searchByLocation(hotelname,userid){
+
+		  	if (hotelname == "") {
+		  		document.getElementById("show-result").innerHTML = "";
+		  		return;
+		  	} else { 
+		  		if (window.XMLHttpRequest) {
+            		// code for IE7+, Firefox, Chrome, Opera, Safari
+           			xmlhttp = new XMLHttpRequest();
+        		} else {
+           			// code for IE6, IE5
+           			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        		}
+        		xmlhttp.onreadystatechange = function() {
+        			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        				document.getElementById("show-result").innerHTML = xmlhttp.responseText;
+        			}
+        		}
+       		xmlhttp.open("GET","index_search_location.php?searchq="+hotelname+"&uid="+userid,true);
+        	xmlhttp.send();
+        	}
+		 }
     </script>
 	</body>
 </html>

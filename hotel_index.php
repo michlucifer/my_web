@@ -1,4 +1,6 @@
 <?php
+include 'config_db.php';
+
 $hid = $_GET['hid'];	
 $userid = $_GET['uid'];	
 $hname = '';
@@ -10,11 +12,6 @@ $log_status = isset($_COOKIE['loggedin']);
 		}else{
 			$userid = null;
 		}
-	$username = "root";
-	$password = "Ling109114";
-	$hostname = "localhost";
-	mysql_connect($hostname, $username, $password) or die("Could not connect to database");
-	mysql_select_db("hotel_booking") or die("could not find db!");
 
 	$query = mysql_query("SELECT * FROM hotel WHERE hotelID='$hid'") or die("Could not search!");
 	$count  = mysql_num_rows($query);
@@ -44,6 +41,7 @@ $log_status = isset($_COOKIE['loggedin']);
 				<div class="navbar-header">
 					<div class="navbar-collapse.collapse">
 						<ul class="nav navbar-nav nav-me-text" >
+							<li class="nav-me-text"><a href="index.php?uid=<?php echo $userid; ?>" style="color:white;"> HOME </a></li>
 							<li id="no_login" class="nav-me-text"><a href="login.php" style="color:white;"> LOGIN </a></li>
 							<li id="to_logout" class="nav-me-text"><a href="logout.php" style="color:white;"> LOGOUT </a></li>
 							<li id="yes_login" class="nav-me-text">
@@ -67,7 +65,7 @@ $log_status = isset($_COOKIE['loggedin']);
 		</div>
 		<div class="hotel-requirement">
 			<div class="title">
-				<h2>OPTIONS</h2>
+				<h2>BOOKING &nbsp;&nbsp;RIGHT &nbsp;&nbsp;NOW!</h2>
 			</div>
 			<form action="hotel_search.php" method="POST">
 				<input type="hidden" name="hid" value="<?php echo $hid?>"/>
@@ -138,8 +136,12 @@ $log_status = isset($_COOKIE['loggedin']);
 						</tr>
 					</table>
 				</div>
-				<input type="submit" name="SEARCH!" style="margin-top:30px;  font-family: "Opensans Regular";"/>
+				<input type="button" value="SEARCH!" style="margin-top:30px;  font-family: "Opensans Regular";" class="btn btn-default"
+				onclick="searchRoom(this.form.searchName.value,this.form.userid.value)"/>
 			</form>
+		</div>
+		<div class="search-room-result">
+			<b>Click SUBMIT to see Result!</b>
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -152,6 +154,11 @@ $log_status = isset($_COOKIE['loggedin']);
 				$("#yes_login").show();
 				}
 		  }
+    </script>
+    <script type="text/javascript">
+         function searchRoom(checkSingle,checkDouble,checkQueen,checkKing,stYear,stMonth,stDay,enYear,enMonth,enDay,hid,uid){
+
+         }
     </script>
 </body>
 </html>

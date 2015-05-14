@@ -2,6 +2,8 @@
 .css {color:red;}
 </style>
 <?php
+include 'config_db.php';
+
 	$king = $_POST['checkboxKing'];
 	echo $king;
 
@@ -12,11 +14,6 @@
 	echo $startDate;
 	echo $endDate;
 
-	$username = "root";
-	$password = "Ling109114";
-	$hostname = "localhost";
-	mysql_connect($hostname, $username, $password) or die("Could not connect to database");
-	mysql_select_db("hotel_booking") or die("could not find db!");
 	$output = ' ';
 
 	if($_POST['checkboxSingle']){

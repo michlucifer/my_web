@@ -1,10 +1,5 @@
 <?php
-	$username = "root";
-	$password = "Ling109114";
-	$hostname = "localhost";
-	
-	$dbhandle = mysql_connect($hostname, $username, $password) or die("Could not connect to database");
-	$selected = mysql_select_db("hotel_booking", $dbhandle);
+	include 'config_db.php';
 	
 	if(isset($_POST['userid']) && isset($_POST['pass'])){
 	$userid = $_POST['userid'];
