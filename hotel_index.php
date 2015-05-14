@@ -24,9 +24,8 @@ $log_status = isset($_COOKIE['loggedin']);
 		$hcity .= $row['city'];}
 
 	}
-echo "Userid: ";
-echo $userid;
 ?>
+
 <html>
 <head>
 	<script src="javascripts/jquery-2.1.0.min.js"></script>
@@ -121,15 +120,43 @@ echo $userid;
 						</tr>
 						<tr>
 							<td>StartDate</td>
-							<td><input type="text"  class="form-control" name="stYear"/></td>
-							<td><input type="text"  class="form-control" name="stMonth"/></td>
-							<td><input type="text"  class="form-control" name="stDay"/></td>
+							<td><input type="text"  class="form-control" name="stYear" 
+									   style="IME-MODE: disabled;"
+									   onkeyup="this.value=this.value.replace(/\D/g,'')"
+									   onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+									   maxlength="4"
+									   /></td>
+							<td><input type="text"  class="form-control" name="stMonth"
+								       style="IME-MODE: disabled;"
+									   onkeyup="this.value=this.value.replace(/\D/g,'')"
+									   onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+									   maxlength="2" 
+									   /></td>
+							<td><input type="text"  class="form-control" name="stDay"
+								       style="IME-MODE: disabled;"
+									   onkeyup="this.value=this.value.replace(/\D/g,'')"
+									   onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+									   maxlength="2" 
+									   /></td>
 						</tr>
 						<tr>
 							<td>EndDate</td>
-							<td><input type="text"  class="form-control" name="enYear"/></td>
-							<td><input type="text"  class="form-control" name="enMonth"/></td>
-							<td><input type="text"  class="form-control" name="enDay"/></td>
+							<td><input type="text"  class="form-control" name="enYear"
+									   style="IME-MODE: disabled;"
+									   onkeyup="this.value=this.value.replace(/\D/g,'')"
+									   onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+									   maxlength="4" /></td>
+							<td><input type="text"  class="form-control" name="enMonth"
+								       style="IME-MODE: disabled;"
+									   onkeyup="this.value=this.value.replace(/\D/g,'')"
+									   onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+									   maxlength="2" 
+									   /></td>
+							<td><input type="text"  class="form-control" name="enDay"
+								       style="IME-MODE: disabled;"
+									   onkeyup="this.value=this.value.replace(/\D/g,'')"
+									   onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+									   maxlength="2" /></td>
 						</tr>
 					</table>
 				</div>
@@ -165,11 +192,19 @@ echo $userid;
 				window.location.href="login.php" ; 
 			}
 		}else{
+			var validinput = true;
 
-			
+			if(stMonth>12 || stMonth<1 || enMonth>12 || enMonth<1){
+				validinput = false;
+				alert('Month should be between 1 to 12 !!!');
+			}
+			if(stDay>31 || stDay<1 || enDay>31 || enDay<1){
+				validinput = false;
+				alert('Day should be between 1 to 31 !!!');
+			}
 
-
-			if (window.XMLHttpRequest) {
+			if(validinput){
+				if (window.XMLHttpRequest) {
             		// code for IE7+, Firefox, Chrome, Opera, Safari
             		xmlhttp = new XMLHttpRequest();
             	} else {
@@ -196,6 +231,7 @@ echo $userid;
            		xmlhttp.send();
            	}
         }
+    }
     </script>
 </body>
 </html>

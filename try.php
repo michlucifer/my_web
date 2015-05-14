@@ -1,177 +1,24 @@
-xmlhttp.open("GET","hotel_search.php?checkSingle="+checkSingle
-                                              +"&checkDouble="+checkDouble
-                                              +"&checkQueen="+checkQueen
-                                              +"&checkKing="+checkKing
-                                              +"&stYear="+stYear
-                                              +"&stMonth="+stMonth
-                                              +"&stDay="+stDay
-                                              +"&enYear="+enYear
-                                              +"&enMonth="+enMonth
-                                              +"&enDay="+enDay
-                                              +"&hid="+hid
-                                              +"&uid="+uid,true);
-            xmlhttp.send();
+<?php
 
+$apikey = AIzaSyBjsINSH5x39Ks6c0_CoS1yr1Mb3cB3cVo;
+$geourl = "http://maps.google.com/maps/geo?q=520+3rd+Street+San+Francisco+CA&output=xml&key=$apikey";
+?>
+<html>
+<head>
+  <script src="javascripts/jquery-2.1.0.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+  <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css" media="screen" type="text/css" />
 
+  <style type="text/css">
+  
 
+  </style>
+</head>
+<body>
+ 
+ <div class="map">
+ </div>
 
-
-
-$hid = $_GET['hid'];
-  $userid = $_GET['uid'];
-
-  $checkSingle = $_GET['checkSingle'];
-  $checkDouble = $_GET['checkDouble'];
-  $checkQueen = $_GET['checkQueen'];
-  $checkKing = $_GET['checkKing'];
-
-  $startDate = $_GET['stYear'] . "-" . $_GET['stMonth'] . "-" . $_GET['stDay'];
-  $endDate = $_GET['enYear'] . "-" . $_GET['enMonth'] . "-" . $_GET['enDay'];
-  echo $startDate;
-  echo $endDate;
-  $output='';
-
-  if($checkSingle){
-    $query = mysql_query("SELECT *
-      FROM room NATURAL JOIN hotel
-      WHERE (room.rmType='Single') AND (hotel.hotelID='$hid')
-      AND CONCAT(hotelID,roomNo) NOT IN(
-        SELECT CONCAT(hotelID,roomNo)
-        FROM room NATURAL JOIN booking
-        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
-        (startDate>='startDate'AND startDate<='endDate')OR
-        (startDate<='startDate'AND endDate>='startDate')OR
-        (startDate<='endDate'AND endDate>='endDate'))");
-    $count  = mysql_num_rows($query);
-    if($count == 0){
-      $output .= 'NO SINGLE!';
-    }else{
-      while($row = mysql_fetch_array($query)){
-        $roomNo = $row['roomNo'];
-        $price = $row['price'];
-        $roomType = $row['rmtype'];
-
-        $output .='<div>' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
-            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-            . '<input type="hidden" name="guestID" value=' .$userid. '>'
-            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-            . '<input type="submit" value="BOOKING"/>'
-            .'</div>';
-      }
-    }
-  }
-  if($checkDouble){
-    $query = mysql_query("SELECT *
-      FROM room NATURAL JOIN hotel
-      WHERE (room.rmType='Double') AND (hotel.hotelID='$hid')
-      AND CONCAT(hotelID,roomNo) NOT IN(
-        SELECT CONCAT(hotelID,roomNo)
-        FROM room NATURAL JOIN booking
-        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
-        (startDate>='startDate'AND startDate<='endDate')OR
-        (startDate<='startDate'AND endDate>='startDate')OR
-        (startDate<='endDate'AND endDate>='endDate'))");
-    $count  = mysql_num_rows($query);
-    if($count == 0){
-      $output .= 'NO DOUBLE!';
-    }else{
-      while($row = mysql_fetch_array($query)){
-        $roomNo = $row['roomNo'];
-        $price = $row['price'];
-        $roomType = $row['rmtype'];
-
-        $output .='<div class="css">' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
-            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-            . '<input type="hidden" name="guestID" value=' .$userid. '>'
-            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-            . '<input type="submit" value="BOOKING"/>'
-            .'</div>';
-      }
-    }
-  }
-  if($checkQueen){
-    $query = mysql_query("SELECT *
-      FROM room NATURAL JOIN hotel
-      WHERE (room.rmType='Queen') AND (hotel.hotelID='$hid')
-      AND CONCAT(hotelID,roomNo) NOT IN(
-        SELECT CONCAT(hotelID,roomNo)
-        FROM room NATURAL JOIN booking
-        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
-        (startDate>='startDate'AND startDate<='endDate')OR
-        (startDate<='startDate'AND endDate>='startDate')OR
-        (startDate<='endDate'AND endDate>='endDate'))");
-    $count  = mysql_num_rows($query);
-    if($count == 0){
-      $output .= 'NO QUEEN!';
-    }else{
-      while($row = mysql_fetch_array($query)){
-        $roomNo = $row['roomNo'];
-        $price = $row['price'];
-        $roomType = $row['rmtype'];
-
-        $output .='<div>' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
-            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-            . '<input type="hidden" name="guestID" value=' .$userid. '>'
-            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-            . '<input type="submit" value="BOOKING"/>'
-            .'</div>';
-      }
-    }
-  }
-  if($checkKing){
-    $query = mysql_query("SELECT *
-      FROM room NATURAL JOIN hotel
-      WHERE (room.rmType='King') AND (hotel.hotelID='$hid')
-      AND CONCAT(hotelID,roomNo) NOT IN(
-        SELECT CONCAT(hotelID,roomNo)
-        FROM room NATURAL JOIN booking
-        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
-        (startDate>='startDate'AND startDate<='endDate')OR
-        (startDate<='startDate'AND endDate>='startDate')OR
-        (startDate<='endDate'AND endDate>='endDate'))");
-    $count  = mysql_num_rows($query);
-    if($count == 0){
-      $output .= 'NO KING!';
-    }else{
-      while($row = mysql_fetch_array($query)){
-        $roomNo = $row['roomNo'];
-        $price = $row['price'];
-        $roomType = $row['rmtype'];
-
-        $output .='<div>' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
-            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-            . '<input type="hidden" name="guestID" value=' .$userid. '>'
-            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-            . '<input type="submit" value="BOOKING"/>'
-            .'</div>';
-      }
-    }
-  }
-echo $output;
-
-
-
-
-
-
-
-
-
- function searchRoom(checkSingle,checkDouble,checkQueen,checkKing,stYear,stMonth,stDay,enYear,enMonth,enDay,hid,uid){
-
-
-
-
-
-  this.form.checkboxSingle.value, this.form.checkboxDouble.value, this.form.checkboxQueen.value, this.form.checkboxKing.value
-                            , this.form.stYear.value, this.stMonth.value, this.form.stDay.value
-                            , this.form.enYear.value, this.enMonth.value, this.form.enDay.value
-                            , this.form.hid.value, this.form.userid.value
+</body>
+</html>
