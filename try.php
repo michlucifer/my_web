@@ -1,48 +1,177 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<p>Click the button to trigger a function that will output "Hello World" in a p element with id="demo".</p>
-
-				<div class="search-title-name">
-					<h2>Search By Name</h2>
-				</div>
-				<form method="POST" id="search-form-name" name="search-form-name" class="navbar-form navbar-left" role="search">
-					
-					<div class="form-group">
-						<input onclick="myFunction(this.form.searchName.value)"  type="button">click</button>
-						<input type="hidden" name="userid"/>
-						<input type="text" class="form-control" name="searchName" placeholder="Search for members by NAME" style="width:300px;height:50px;border-radius:0;"/>
-					</div>
-				</form>
-
-<div id="txtHint"><b>Person info will be listed here...</b></div>
-
-<script>
+xmlhttp.open("GET","hotel_search.php?checkSingle="+checkSingle
+                                              +"&checkDouble="+checkDouble
+                                              +"&checkQueen="+checkQueen
+                                              +"&checkKing="+checkKing
+                                              +"&stYear="+stYear
+                                              +"&stMonth="+stMonth
+                                              +"&stDay="+stDay
+                                              +"&enYear="+enYear
+                                              +"&enMonth="+enMonth
+                                              +"&enDay="+enDay
+                                              +"&hid="+hid
+                                              +"&uid="+uid,true);
+            xmlhttp.send();
 
 
-function myFunction(str) {
-     if (str == "") {
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-            }
-        }
-        xmlhttp.open("GET","getuser.php?q="+str,true);
-        xmlhttp.send();
+
+
+
+
+$hid = $_GET['hid'];
+  $userid = $_GET['uid'];
+
+  $checkSingle = $_GET['checkSingle'];
+  $checkDouble = $_GET['checkDouble'];
+  $checkQueen = $_GET['checkQueen'];
+  $checkKing = $_GET['checkKing'];
+
+  $startDate = $_GET['stYear'] . "-" . $_GET['stMonth'] . "-" . $_GET['stDay'];
+  $endDate = $_GET['enYear'] . "-" . $_GET['enMonth'] . "-" . $_GET['enDay'];
+  echo $startDate;
+  echo $endDate;
+  $output='';
+
+  if($checkSingle){
+    $query = mysql_query("SELECT *
+      FROM room NATURAL JOIN hotel
+      WHERE (room.rmType='Single') AND (hotel.hotelID='$hid')
+      AND CONCAT(hotelID,roomNo) NOT IN(
+        SELECT CONCAT(hotelID,roomNo)
+        FROM room NATURAL JOIN booking
+        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
+        (startDate>='startDate'AND startDate<='endDate')OR
+        (startDate<='startDate'AND endDate>='startDate')OR
+        (startDate<='endDate'AND endDate>='endDate'))");
+    $count  = mysql_num_rows($query);
+    if($count == 0){
+      $output .= 'NO SINGLE!';
+    }else{
+      while($row = mysql_fetch_array($query)){
+        $roomNo = $row['roomNo'];
+        $price = $row['price'];
+        $roomType = $row['rmtype'];
+
+        $output .='<div>' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
+            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
+            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
+            . '<input type="hidden" name="guestID" value=' .$userid. '>'
+            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
+            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
+            . '<input type="submit" value="BOOKING"/>'
+            .'</div>';
+      }
     }
-}
-</script>
+  }
+  if($checkDouble){
+    $query = mysql_query("SELECT *
+      FROM room NATURAL JOIN hotel
+      WHERE (room.rmType='Double') AND (hotel.hotelID='$hid')
+      AND CONCAT(hotelID,roomNo) NOT IN(
+        SELECT CONCAT(hotelID,roomNo)
+        FROM room NATURAL JOIN booking
+        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
+        (startDate>='startDate'AND startDate<='endDate')OR
+        (startDate<='startDate'AND endDate>='startDate')OR
+        (startDate<='endDate'AND endDate>='endDate'))");
+    $count  = mysql_num_rows($query);
+    if($count == 0){
+      $output .= 'NO DOUBLE!';
+    }else{
+      while($row = mysql_fetch_array($query)){
+        $roomNo = $row['roomNo'];
+        $price = $row['price'];
+        $roomType = $row['rmtype'];
 
-</body>
-</html>
+        $output .='<div class="css">' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
+            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
+            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
+            . '<input type="hidden" name="guestID" value=' .$userid. '>'
+            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
+            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
+            . '<input type="submit" value="BOOKING"/>'
+            .'</div>';
+      }
+    }
+  }
+  if($checkQueen){
+    $query = mysql_query("SELECT *
+      FROM room NATURAL JOIN hotel
+      WHERE (room.rmType='Queen') AND (hotel.hotelID='$hid')
+      AND CONCAT(hotelID,roomNo) NOT IN(
+        SELECT CONCAT(hotelID,roomNo)
+        FROM room NATURAL JOIN booking
+        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
+        (startDate>='startDate'AND startDate<='endDate')OR
+        (startDate<='startDate'AND endDate>='startDate')OR
+        (startDate<='endDate'AND endDate>='endDate'))");
+    $count  = mysql_num_rows($query);
+    if($count == 0){
+      $output .= 'NO QUEEN!';
+    }else{
+      while($row = mysql_fetch_array($query)){
+        $roomNo = $row['roomNo'];
+        $price = $row['price'];
+        $roomType = $row['rmtype'];
+
+        $output .='<div>' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
+            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
+            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
+            . '<input type="hidden" name="guestID" value=' .$userid. '>'
+            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
+            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
+            . '<input type="submit" value="BOOKING"/>'
+            .'</div>';
+      }
+    }
+  }
+  if($checkKing){
+    $query = mysql_query("SELECT *
+      FROM room NATURAL JOIN hotel
+      WHERE (room.rmType='King') AND (hotel.hotelID='$hid')
+      AND CONCAT(hotelID,roomNo) NOT IN(
+        SELECT CONCAT(hotelID,roomNo)
+        FROM room NATURAL JOIN booking
+        WHERE (endDate>='$startDate'AND endDate<='$endDate') OR 
+        (startDate>='startDate'AND startDate<='endDate')OR
+        (startDate<='startDate'AND endDate>='startDate')OR
+        (startDate<='endDate'AND endDate>='endDate'))");
+    $count  = mysql_num_rows($query);
+    if($count == 0){
+      $output .= 'NO KING!';
+    }else{
+      while($row = mysql_fetch_array($query)){
+        $roomNo = $row['roomNo'];
+        $price = $row['price'];
+        $roomType = $row['rmtype'];
+
+        $output .='<div>' .$roomNo. ' ' .$price. ' '.$roomType. '<form action="booking.php" method="POST">'
+            . '<input type="hidden" name="hotelID" value=' .$hid. '>'
+            . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
+            . '<input type="hidden" name="guestID" value=' .$userid. '>'
+            . '<input type="hidden" name="startDate" value=' .$startDate. '>'
+            . '<input type="hidden" name="endDate" value=' .$endDate. '>'
+            . '<input type="submit" value="BOOKING"/>'
+            .'</div>';
+      }
+    }
+  }
+echo $output;
+
+
+
+
+
+
+
+
+
+ function searchRoom(checkSingle,checkDouble,checkQueen,checkKing,stYear,stMonth,stDay,enYear,enMonth,enDay,hid,uid){
+
+
+
+
+
+  this.form.checkboxSingle.value, this.form.checkboxDouble.value, this.form.checkboxQueen.value, this.form.checkboxKing.value
+                            , this.form.stYear.value, this.stMonth.value, this.form.stDay.value
+                            , this.form.enYear.value, this.enMonth.value, this.form.enDay.value
+                            , this.form.hid.value, this.form.userid.value

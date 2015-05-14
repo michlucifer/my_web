@@ -24,7 +24,8 @@ $log_status = isset($_COOKIE['loggedin']);
 		$hcity .= $row['city'];}
 
 	}
-
+echo "Userid: ";
+echo $userid;
 ?>
 <html>
 <head>
@@ -77,7 +78,6 @@ $log_status = isset($_COOKIE['loggedin']);
 					<div class="check-single">
 						<div class="checkbox">
 							<label>
-								<input type="hidden" name="checkboxSingle" value="0" />
 								<input type="checkbox" name="checkboxSingle" value="1">
 								Single
 							</label>
@@ -86,7 +86,6 @@ $log_status = isset($_COOKIE['loggedin']);
 					<div class="check-double">
 						<div class="checkbox">
 							<label>
-								<input type="hidden" name="checkboxDouble" value="0" />
 								<input type="checkbox" name="checkboxDouble" value="1">
 								Double
 							</label>
@@ -95,7 +94,6 @@ $log_status = isset($_COOKIE['loggedin']);
 					<div class="check-queen">
 						<div class="checkbox">
 							<label>
-								<input type="hidden" name="checkboxQueen" value="0" />
 								<input type="checkbox" name="checkboxQueen" value="1">
 								Queen
 							</label>
@@ -104,7 +102,6 @@ $log_status = isset($_COOKIE['loggedin']);
 					<div class="check-king">
 						<div class="checkbox">
 							<label>
-								<input type="hidden" name="checkboxKing" value="0" />
 								<input type="checkbox" name="checkboxKing" value="1">
 								King
 							</label>
@@ -137,10 +134,12 @@ $log_status = isset($_COOKIE['loggedin']);
 					</table>
 				</div>
 				<input type="button" value="SEARCH!" style="margin-top:30px;  font-family: "Opensans Regular";" class="btn btn-default"
-				onclick="searchRoom(this.form.searchName.value,this.form.userid.value)"/>
+				onclick="searchRoom( this.form.stYear.value,  this.form.stMonth.value,  this.form.stDay.value,  this.form.enYear.value,  this.form.enMonth.value,  this.form.enDay.value
+									, this.form.checkboxSingle.checked, this.form.checkboxDouble.checked, this.form.checkboxQueen.checked, this.form.checkboxKing.checked
+				                    ,this.form.hid.value, this.form.userid.value)"/>
 			</form>
 		</div>
-		<div class="search-room-result">
+		<div id="show-room-result">
 			<b>Click SUBMIT to see Result!</b>
 		</div>
 	</div>
@@ -156,9 +155,47 @@ $log_status = isset($_COOKIE['loggedin']);
 		  }
     </script>
     <script type="text/javascript">
-         function searchRoom(checkSingle,checkDouble,checkQueen,checkKing,stYear,stMonth,stDay,enYear,enMonth,enDay,hid,uid){
+        
+	function searchRoom(stYear, stMonth, stDay, enYear, enMonth, enDay, checkSingle, checkDouble, checkQueen, checkKing, hid, uid){
 
-         }
+		if(uid === '')
+		{
+			var r = confirm("You Need To LOGIN First!\n Are You Gonna Login??");
+			if (r == true) {
+				window.location.href="login.php" ; 
+			}
+		}else{
+
+			
+
+
+			if (window.XMLHttpRequest) {
+            		// code for IE7+, Firefox, Chrome, Opera, Safari
+            		xmlhttp = new XMLHttpRequest();
+            	} else {
+           			// code for IE6, IE5
+           			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+           		}
+           		xmlhttp.onreadystatechange = function() {
+           			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+           				document.getElementById("show-room-result").innerHTML = xmlhttp.responseText;
+           			}
+           		}
+           		xmlhttp.open("GET","hotel_search.php?stYear="+stYear
+           			+"&stMonth="+stMonth
+           			+"&stDay="+stDay
+           			+"&enYear="+stYear
+           			+"&enMonth="+enMonth
+           			+"&enDay="+enDay
+           			+"&checkSingle="+checkSingle
+           			+"&checkDouble="+checkDouble
+           			+"&checkQueen="+checkQueen
+           			+"&checkKing="+checkKing
+           			+"&hid="+hid
+           			+"&uid="+uid,true);
+           		xmlhttp.send();
+           	}
+        }
     </script>
 </body>
 </html>
