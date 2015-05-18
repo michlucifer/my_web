@@ -63,7 +63,7 @@ include 'config_db.php';
                          . '<input type="hidden" name="startDate" value=' .$startDate. '>'
                          . '<input type="hidden" name="endDate" value=' .$endDate. '>'
                          . '<input type="submit" value="BOOKING"/>'
-            .'</li>';
+            .'</form></li>';
       }
     }
   }

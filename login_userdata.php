@@ -1,6 +1,7 @@
 <?php
 include 'config_db.php';
 
+  				$imgpath = "image/room_sample.jpg";
 				$userid = $_GET['uid'];
 				echo $userid;
 
@@ -10,23 +11,32 @@ include 'config_db.php';
 				if($count == 0) {
 				$output = 'No Booking';
 				}else{
+				$output='<div class="room-info">
+              				<ul>';
 				while($row = mysql_fetch_array($query)){
 					$hid = $row['hotelID'];
 					$rno = $row['roomNo'];
 					$startD = $row['startDate'];
 					$endD = $row['endDate'];
 					
-					$output .='<div>'.$hid.'   '.$rno.'   '.$startD.'   '.$endD
+					$output .='<li>
+                      <img src="'.$imgpath. '" width="200">'
+                    .'<p>HotelID: '.$hid.'</p>'
+                    .'<p>RoomNo: ' .$rno. '</p>'
+                    .'<p>startDate: ' .$startD. '</p>'
+                    .'<p>endDate: ' .$endD. '</p>'
+
 							.'<form action="delete_booking.php" method="POST">'
 								.'<input type="hidden" name="gid" value='.$userid.'>'
 								.'<input type="hidden" name="hid" value='.$hid.'>'
 								.'<input type="hidden" name="rno" value='.$rno.'>'
 								.'<input type="hidden" name="startD" value='.$startD.'>'
 								.'<input type="submit" value="DELETE"/>'
-								.'</form></div>';
+								
+					.'</form></li>';
 				}
 				}
-				
+	$output .='</ul> </div>';
 			
 ?>
 
@@ -36,6 +46,34 @@ include 'config_db.php';
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 	<link rel="stylesheet" href="css/bootstrap/css/bootstrap.css" media="screen" type="text/css" />
+  <style type="text/css">
+  .room-info{
+    position: relative;
+    overflow: hidden;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    display: inline;
+    height:400px;
+    width:1000px;
+  }
+  .room-info ul li {
+    float:left;
+    margin:100px;
+    list-style:none;
+    display:block; 
+    white-space: nowrap;
+  }
+  </style>
 </head>
 	<body>
 		<div class="fluid-container">
@@ -53,10 +91,11 @@ include 'config_db.php';
 			</div>
 			<div class="user-booking-info">
 				<h1 style="margin-top:100px;">Your Booking Records!</h1>
+				<div class="room-info">
 				<?php
 					print("$output");
 				?>
-				
+				</div>
 			</div>
 		</div>
 		
