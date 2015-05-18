@@ -44,7 +44,7 @@ include 'config_db.php';
         (startDate<='endDate'AND endDate>='endDate'))");
     $count  = mysql_num_rows($query);
     if($count == 0){
-      $output .= 'NO SINGLE!';
+    
     }else{
       while($row = mysql_fetch_array($query)){
         $roomNo = $row['roomNo'];
@@ -80,7 +80,7 @@ include 'config_db.php';
         (startDate<='endDate'AND endDate>='endDate'))");
     $count  = mysql_num_rows($query);
     if($count == 0){
-      $output .= 'NO DOUBLE!';
+   
     }else{
       while($row = mysql_fetch_array($query)){
         $roomNo = $row['roomNo'];
@@ -117,7 +117,7 @@ include 'config_db.php';
         (startDate<='endDate'AND endDate>='endDate'))");
     $count  = mysql_num_rows($query);
     if($count == 0){
-      $output .= 'NO QUEEN!';
+    
     }else{
       while($row = mysql_fetch_array($query)){
         $roomNo = $row['roomNo'];
@@ -154,7 +154,7 @@ include 'config_db.php';
         (startDate<='endDate'AND endDate>='endDate'))");
     $count  = mysql_num_rows($query);
     if($count == 0){
-      $output .= 'NO KING!';
+   
     }else{
       while($row = mysql_fetch_array($query)){
         $roomNo = $row['roomNo'];

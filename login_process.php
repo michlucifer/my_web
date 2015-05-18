@@ -13,7 +13,7 @@
 	
 	mysql_close();
 	if($count == 1) {
-		$seconds = 120 + time();
+		$seconds = 600 + time();
 		setcookie(loggedin, date("F jS - g:i a"), $seconds);
 		header("location: index.php?uid=$myuserid");
 	}else{

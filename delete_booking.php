@@ -14,8 +14,7 @@
 ?>
 <html>
 	<body>
-		<form name="form1" action="login_userdata.php" method="POST">
-			<input type="hidden" name="userid" value="<?php echo $gid?>"/>
+		<form name="form1" action="login_userdata.php?uid=<?php echo $gid; ?>" method="POST">
 		</form>
 
 		<script type="text/javascript">
