@@ -4,7 +4,7 @@ include 'config_db.php';
 
   echo "HI!!";
   $imgpath = "image/room_sample.jpg";
-  
+	
   $hid = $_GET['hid'];
   $userid = $_GET['uid'];
 

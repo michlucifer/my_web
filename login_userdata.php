@@ -3,10 +3,19 @@ include 'config_db.php';
 
   				$imgpath = "image/room_sample.jpg";
 				$userid = $_GET['uid'];
+
+				$query = mysql_query("SELECT  * FROM guest WHERE guestID='$userid'");
+			
+				while($row= mysql_fetch_array($query)){
+				$userName = $row['guestName'];
+				}
+
 				echo $userid;
 
 				$query = mysql_query("SELECT * FROM booking WHERE guestID='$userid'") or die("Could not search!");
 				$count  = mysql_num_rows($query);
+
+
 				
 				if($count == 0) {
 				$output = 'No Booking';
@@ -83,7 +92,7 @@ include 'config_db.php';
 						<div class="navbar-collapse.collapse">
 							<ul class="nav navbar-nav">
 								<li><a href="index.php?uid=<?php echo $userid; ?>">HOME</a></li>
-								<li><a href="login_userdata.php?uid=<?php echo $userid; ?>" style="color:white;"><?php echo $userid; ?></a></li>
+								<li><a href="login_userdata.php?uid=<?php echo $userid; ?>" style="color:black;"><?php echo $userName; ?></a></li>
 							</ul>
 						</div>
 					</div>

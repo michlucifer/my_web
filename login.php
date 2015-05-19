@@ -20,11 +20,11 @@ table, td, tr {
 						<tr>
 							<td>
 								<label>
-									UserID:
+									UserName:
 								</label>
 							</td>
 							<td>
-								<input type="text" class="form-control" name="userid" placeholder="Type in your userid" style="width:300px;height:50px;border-radius:0;"/>
+								<input type="text" class="form-control" name="userName" placeholder="Type in your userName" style="width:300px;height:50px;border-radius:0;"/>
 							</td>
 						</tr>
 						<tr>

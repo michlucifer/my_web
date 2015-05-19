@@ -4,8 +4,15 @@
 		$log_status = isset($_COOKIE['loggedin']);
 		if($log_status)	{
 			$userid = $_GET['uid'];
+			include 'config_db.php';
+			$query = mysql_query("SELECT  * FROM guest WHERE guestID='$userid'");
+			
+			while($row= mysql_fetch_array($query)){
+				$userName = $row['guestName'];
+			}
 		}else{
 			$userid = null;
+			$userName = '';
 		}
 ?>
 <html>
@@ -27,7 +34,7 @@
 							<li id="no_login" class="nav-me-text"><a href="login.php" style="color:white;"> LOGIN </a></li>
 							<li id="to_logout" class="nav-me-text"><a href="logout.php" style="color:white;"> LOGOUT </a></li>
 							<li id="yes_login" class="nav-me-text">
-							<a href="login_userdata.php?uid=<?php echo $userid; ?>" style="color:white;"><?php echo $userid; ?></a>
+							<a href="login_userdata.php?uid=<?php echo $userid; ?>" style="color:white;"><?php echo $userName; ?></a>
 							</li>
 						</ul>
 					</div>
