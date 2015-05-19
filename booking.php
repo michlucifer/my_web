@@ -1,17 +1,22 @@
 <?php
 	include 'config_db.php';
 
-	$hotelID = $_POST['hotelID'];
-	$roomNo = $_POST['roomNo'];
-	$guestID = $_POST['guestID'];
-	$startDate = $_POST['startDate'];
-	$endDate = $_POST['endDate'];
-	if(mysql_query("INSERT INTO booking (hotelID, roomNo, guestID, startDate, endDate) VALUES ('$hotelID', '$roomNo', '$guestID', '$startDate', '$endDate')"))
+	$hotelID = $_GET['hotelID'];
+	$roomNo = $_GET['roomNo'];
+	$guestID = $_GET['guestID'];
+	$startDate = $_GET['startDate'];
+	$endDate = $_GET['endDate'];
+	echo $hotelID;
+	echo $roomNo;
+	echo $guestID;
+	echo $startDate;
+	if(!mysql_query("INSERT INTO booking (hotelID, roomNo, guestID, startDate, endDate) VALUES ('$hotelID', '$roomNo', '$guestID', '$startDate', '$endDate')"))
 	{
-		echo ("Insert Successfully!");
+		echo ("Insert Failed!");
+		echo("Error description: " . mysqli_error($con));
 	}
 	else{
-		echo ("Insert Failed!");
+		echo ("Insert Successfully!");
 	}
 ?>
 <html>
@@ -20,7 +25,7 @@
 		</form>
 
 		<script type="text/javascript">
-			setTimeout("document.form1.submit()",1000) 
+			setTimeout("document.form1.submit()",5000) 
 		</script>
 	</body>
 </html>

@@ -59,17 +59,16 @@ include 'config_db.php';
                     .'<p>Room Type: '.$roomType.'</p>'
                     .'<p>Price: ' .$price. '</p>'
                     .'<p>RoomNo: ' .$roomNo. '</p>'
-                    .'<form action="booking.php" method="POST">'
-                         . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-                         . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-                          . '<input type="hidden" name="guestID" value=' .$userid. '>'
-                         . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-                         . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-                         . '<input type="submit" value="BOOKING"/>'
+                    .'<a href="booking.php?hotelID=' .$hid
+                    .'&roomNo=' .$roomNo
+                    .'&guestID=' .$userid
+                    .'&startDate=' .$startDate
+                    .'&endDate=' .$endDate
+                    .'">BOOKING</a>'
             .'</form></li>';
       }
     }
-    $output .='</ul> </div> </br>';
+    $output .='</ul> </div>';
     echo $output;
   }
   if($checkDouble){
@@ -101,17 +100,16 @@ include 'config_db.php';
                     .'<p>Room Type: '.$roomType.'</p>'
                     .'<p>Price: ' .$price. '</p>'
                     .'<p>RoomNo: ' .$roomNo. '</p>'
-                    .'<form action="booking.php" method="POST">'
-                         . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-                         . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-                          . '<input type="hidden" name="guestID" value=' .$userid. '>'
-                         . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-                         . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-                         . '<input type="submit" value="BOOKING"/>'
+                    .'<a href="booking.php?hotelID=' .$hid
+                    .'&roomNo=' .$roomNo
+                    .'&guestID=' .$userid
+                    .'&startDate=' .$startDate
+                    .'&endDate=' .$endDate
+                    .'">BOOKING</a>'
             .'</li>';
       }
     }
-    $output .='</ul> </div> </br>';
+    $output .='</ul> </div>';
     echo $output;
   }
   if($checkQueen){
@@ -143,17 +141,16 @@ include 'config_db.php';
                     .'<p>Room Type: '.$roomType.'</p>'
                     .'<p>Price: ' .$price. '</p>'
                     .'<p>RoomNo: ' .$roomNo. '</p>'
-                    .'<form action="booking.php" method="POST">'
-                         . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-                         . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-                          . '<input type="hidden" name="guestID" value=' .$userid. '>'
-                         . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-                         . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-                         . '<input type="submit" value="BOOKING"/>'
+                    .'<a href="booking.php?hotelID=' .$hid
+                    .'&roomNo=' .$roomNo
+                    .'&guestID=' .$userid
+                    .'&startDate=' .$startDate
+                    .'&endDate=' .$endDate
+                    .'">BOOKING</a>'
             .'</li>';
       }
     }
-    $output .='</ul> </div> </br>';
+    $output .='</ul> </div>';
     echo $output;
   }
   if($checkKing){
@@ -185,17 +182,16 @@ include 'config_db.php';
                     .'<p>Room Type: '.$roomType.'</p>'
                     .'<p>Price: ' .$price. '</p>'
                     .'<p>RoomNo: ' .$roomNo. '</p>'
-                    .'<form action="booking.php" method="POST">'
-                         . '<input type="hidden" name="hotelID" value=' .$hid. '>'
-                         . '<input type="hidden" name="roomNo" value=' .$roomNo. '>' 
-                          . '<input type="hidden" name="guestID" value=' .$userid. '>'
-                         . '<input type="hidden" name="startDate" value=' .$startDate. '>'
-                         . '<input type="hidden" name="endDate" value=' .$endDate. '>'
-                         . '<input type="submit" value="BOOKING"/>'
+                   .'<a href="booking.php?hotelID=' .$hid
+                    .'&roomNo=' .$roomNo
+                    .'&guestID=' .$userid
+                    .'&startDate=' .$startDate
+                    .'&endDate=' .$endDate
+                    .'">BOOKING</a>'
             .'</li>';
       }
     }
-    $output .='</ul> </div> </br>';
+    $output .='</ul> </div> ';
     echo $output;
   }
 ?>
